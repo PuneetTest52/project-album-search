@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="no_width">0dp</dimen>
     <dimen name="margin_small">5dp</dimen>
     <dimen name="margin_medium">10dp</dimen>
     <dimen name="margin_large">15dp</dimen>
+
     <dimen name="thumbnail_image_dimens">100dp</dimen>
     <dimen name="large_image_dimens">200dp</dimen>
+
     <dimen name="text_size_small">12sp</dimen>
     <dimen name="text_size_medium">15sp</dimen>
     <dimen name="text_size_large">20sp</dimen>
+
+    <dimen name="constraint_with_percent">0.7</dimen>
 </resources>

@@ -14,8 +14,8 @@ public class AlbumsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private final List<AlbumDetailsModel> mAlbumDetailsModelList;
     private final AlbumsAdapter.OnItemSelectListener mItemSelectListener;
 
-    public AlbumsAdapter(@NonNull List<AlbumDetailsModel> albums,
-                         @NonNull AlbumsAdapter.OnItemSelectListener itemSelectListener) {
+    public AlbumsAdapter(@NonNull final List<AlbumDetailsModel> albums,
+                         @NonNull final AlbumsAdapter.OnItemSelectListener itemSelectListener) {
         mAlbumDetailsModelList = albums;
         mItemSelectListener = itemSelectListener;
     }

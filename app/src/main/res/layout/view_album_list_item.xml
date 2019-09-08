@@ -19,24 +19,27 @@
 
     <TextView
         android:id="@+id/tv_album_name"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/no_width"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_large"
         android:layout_marginTop="@dimen/margin_medium"
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/text_size_small"
         app:layout_constraintStart_toEndOf="@id/iv_album_Image"
-        app:layout_constraintTop_toTopOf="@id/iv_album_Image"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="@dimen/constraint_with_percent"
         tools:text="@string/dummy_name"/>
 
     <TextView
         android:id="@+id/tv_artist_name"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/no_width"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_large"
         android:layout_marginTop="@dimen/margin_large"
+        android:textColor="@color/colorDarkGray"
         android:textSize="@dimen/text_size_medium"
         app:layout_constraintStart_toEndOf="@id/iv_album_Image"
         app:layout_constraintTop_toBottomOf="@+id/tv_album_name"
+        app:layout_constraintWidth_percent="@dimen/constraint_with_percent"
         tools:text="@string/dummy_name"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

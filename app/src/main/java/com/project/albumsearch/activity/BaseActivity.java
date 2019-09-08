@@ -23,6 +23,12 @@ public class BaseActivity extends AppCompatActivity {
         mFragmentManager = getSupportFragmentManager();
     }
 
+    /**
+     * Adds the new fragment to the activity.
+     *
+     * @param fragment         Fragment to be added.
+     * @param isAddToBackStack true of fragment to be added to the backStack.
+     */
     protected void loadNewFragment(@NonNull Fragment fragment, final boolean isAddToBackStack) {
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.baseContainer, fragment);

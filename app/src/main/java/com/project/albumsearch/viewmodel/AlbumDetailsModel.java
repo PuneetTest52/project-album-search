@@ -17,7 +17,6 @@ import androidx.annotation.NonNull;
 
 public class AlbumDetailsModel implements Parcelable {
 
-    private static final String EMPTY_STRING = "";
     private static final String IMAGE_SIZE_THUMBNAIL = "small";
     private static final String IMAGE_SIZE_LARGE = "extralarge";
 
@@ -65,6 +64,12 @@ public class AlbumDetailsModel implements Parcelable {
         }
     };
 
+    /**
+     * Converts the Api response to view model which can be consumed on the UI.
+     *
+     * @param albumApiResponse Api response fetched.
+     * @return List of AlbumDetailsModel to be consumed on the UI.
+     */
     @NonNull
     public static List<AlbumDetailsModel> fromApiResponse(@NonNull final AlbumApiResponse albumApiResponse) {
         List<AlbumDetailsModel> albumDetailsModels = new ArrayList<>();
@@ -97,6 +102,13 @@ public class AlbumDetailsModel implements Parcelable {
         return StringUtilities.emptyStringIfNull(mLargeImage);
     }
 
+    /**
+     * Method to get the album image url based on the size required
+     *
+     * @param albumImages List of different album image sizes.
+     * @param size        image size required
+     * @return Required image sized url.
+     */
     @NonNull
     private String getImageUrl(@NonNull final List<AlbumImage> albumImages,
                                @NonNull final String size) {
@@ -105,6 +117,6 @@ public class AlbumDetailsModel implements Parcelable {
                 return albumImage.getImage();
             }
         }
-        return EMPTY_STRING;
+        return StringUtilities.EMPTY_STRING;
     }
 }

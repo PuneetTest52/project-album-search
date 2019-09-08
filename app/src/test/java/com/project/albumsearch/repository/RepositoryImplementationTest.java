@@ -6,8 +6,6 @@ import com.project.albumsearch.dto.AlbumImage;
 import com.project.albumsearch.dto.AlbumMatches;
 import com.project.albumsearch.dto.AlbumResults;
 import com.project.albumsearch.network.AlbumApi;
-import com.project.albumsearch.repository.Repository;
-import com.project.albumsearch.repository.RepositoryImplementation;
 import com.project.albumsearch.viewmodel.AlbumDetailsModel;
 
 import org.junit.Before;

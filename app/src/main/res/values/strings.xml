@@ -2,5 +2,5 @@
     <string name="app_name">Album Search</string>
     <string name="dummy_name">Sample Name</string>
     <string name="no_network">Please connect to the internet  to search the albums.</string>
-    <string name="search_view_hint">Enter the album name.</string>
+    <string name="search_view_hint">Enter the album name to search</string>
 </resources>

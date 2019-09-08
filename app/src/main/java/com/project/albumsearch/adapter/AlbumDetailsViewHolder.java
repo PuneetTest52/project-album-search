@@ -5,9 +5,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.project.albumsearch.viewmodel.AlbumDetailsModel;
 import com.project.albumsearch.R;
 import com.project.albumsearch.utils.Utilities;
+import com.project.albumsearch.viewmodel.AlbumDetailsModel;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;

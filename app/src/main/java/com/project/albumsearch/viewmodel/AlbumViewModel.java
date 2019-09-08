@@ -6,12 +6,13 @@ import com.project.albumsearch.utils.Utilities;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 
 public class AlbumViewModel extends ViewModel {
 
@@ -20,24 +21,22 @@ public class AlbumViewModel extends ViewModel {
     private final Repository mRepository;
     private final CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
+    @Inject
     public AlbumViewModel(Repository repository) {
         mRepository = repository;
     }
 
+    /**
+     * Loads the list of album into LiveData based on the keyword searched by the user.
+     *
+     * @param searchKeyword  User input to be searched.
+     * @param onErrorHandler listener for error handling
+     */
     public void getSearchedAlbums(@NonNull final String searchKeyword,
                                   @NonNull final OnErrorHandler onErrorHandler) {
         addDisposable(mRepository.getAlbumDetails(Utilities.SEARCH_METHOD, searchKeyword)
-                .subscribe(new Consumer<List<AlbumDetailsModel>>() {
-                    @Override
-                    public void accept(List<AlbumDetailsModel> albumDetailsModels) {
-                        mAlbumApiResponseData.setValue(albumDetailsModels);
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) {
-                        onErrorHandler.onError(throwable.getLocalizedMessage());
-                    }
-                }));
+                .subscribe(albumDetailsModels -> mAlbumApiResponseData.setValue(albumDetailsModels),
+                        throwable -> onErrorHandler.onError(throwable.getLocalizedMessage())));
     }
 
     public MutableLiveData<List<AlbumDetailsModel>> getAlbumApiResponseData() {

@@ -2,8 +2,6 @@ package com.project.albumsearch.viewmodel;
 
 import com.project.albumsearch.handlers.OnErrorHandler;
 import com.project.albumsearch.repository.Repository;
-import com.project.albumsearch.viewmodel.AlbumDetailsModel;
-import com.project.albumsearch.viewmodel.AlbumViewModel;
 
 import org.junit.Before;
 import org.junit.Rule;

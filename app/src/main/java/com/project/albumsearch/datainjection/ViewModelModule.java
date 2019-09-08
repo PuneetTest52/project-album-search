@@ -18,6 +18,9 @@ import dagger.Module;
 import dagger.Provides;
 import dagger.multibindings.IntoMap;
 
+/**
+ * This is a module with all the dependencies needed for the injections of ViewModel.
+ */
 @Module
 public class ViewModelModule {
 

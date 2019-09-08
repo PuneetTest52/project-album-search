@@ -9,6 +9,6 @@ import retrofit2.http.Query;
 public interface AlbumApi {
 
     @GET("/2.0/")
-    Single<AlbumApiResponse> getAlbumsResponse(@Query("method") String searchMethod,
-                                               @Query("album") String albumName);
+    Single<AlbumApiResponse> getAlbumsResponse(@Query("method") final String searchMethod,
+                                               @Query("album") final String albumName);
 }
