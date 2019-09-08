@@ -1,4 +1,4 @@
-package com.project.albumsearch;
+package com.project.albumsearch.viewmodel;
 
 import com.project.albumsearch.handlers.OnErrorHandler;
 import com.project.albumsearch.repository.Repository;

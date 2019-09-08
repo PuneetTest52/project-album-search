@@ -1,4 +1,4 @@
-package com.project.albumsearch;
+package com.project.albumsearch.repository;
 
 import com.project.albumsearch.dto.Album;
 import com.project.albumsearch.dto.AlbumApiResponse;

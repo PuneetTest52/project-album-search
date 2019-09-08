@@ -2,4 +2,27 @@ ext {
     // Testing
     mockitoLibraryVersion = '2.8.9'
     assertJLibraryVersion = '1.7.1'
+    jUnitVersion = '4.12'
+    testRunnerVersion = '1.2.0'
+    expressoVersion = '3.1.0'
+    coreTestingVersion = '1.0.0'
+
+    //Network
+    retrofitVersion = '2.3.0'
+    okhttpVersion = '3.12.0'
+    okhttpLoggingVersion = '3.10.0'
+
+    //View
+    appCompactVersion = '1.0.2'
+    constraintLayoutVersion = '1.1.3'
+    viewModelVersion = '2.2.0-alpha03'
+    butterKnifeVersion = '10.1.0'
+    glideVersion = '4.8.0'
+    recyclerViewVersion = '1.0.0'
+
+    rxJavaVersion = '2.2.8'
+    rxAndroidVersion = '2.1.1'
+    daggerVersion = '2.11'
+    daggerAndroidVersion = '2.17'
+    multiDexersion = '2.0.1'
 }
