@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import com.project.albumsearch.R;
 import com.project.albumsearch.adapter.AlbumsAdapter;
-import com.project.albumsearch.datainjestion.DependencyInjector;
+import com.project.albumsearch.datainjection.DependencyInjector;
 import com.project.albumsearch.handlers.NavigationalHandler;
 import com.project.albumsearch.handlers.OnErrorHandler;
 import com.project.albumsearch.utils.Utilities;
@@ -91,7 +91,7 @@ public class AlbumSearchFragment extends BaseFragment implements AlbumsAdapter.O
 
     private void getSearchResults(@NonNull final String userSearch) {
         mContentLoadingProgressBar.show();
-        mAlbumViewModel.getSearchedAlbum(userSearch, this);
+        mAlbumViewModel.getSearchedAlbums(userSearch, this);
     }
 
     private void setAlbumAdapter(@NonNull final List<AlbumDetailsModel> albumDetailsModels) {

@@ -24,8 +24,8 @@ public class AlbumViewModel extends ViewModel {
         mRepository = repository;
     }
 
-    public void getSearchedAlbum(@NonNull final String searchKeyword,
-                                 @NonNull final OnErrorHandler onErrorHandler) {
+    public void getSearchedAlbums(@NonNull final String searchKeyword,
+                                  @NonNull final OnErrorHandler onErrorHandler) {
         addDisposable(mRepository.getAlbumDetails(Utilities.SEARCH_METHOD, searchKeyword)
                 .subscribe(new Consumer<List<AlbumDetailsModel>>() {
                     @Override

@@ -1,0 +1,5 @@
+ext {
+    // Testing
+    mockitoLibraryVersion = '2.8.9'
+    assertJLibraryVersion = '1.7.1'
+}

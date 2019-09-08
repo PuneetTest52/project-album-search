@@ -1,4 +1,4 @@
-package com.project.albumsearch.datainjestion;
+package com.project.albumsearch.datainjection;
 
 import com.project.albumsearch.repository.Repository;
 import com.project.albumsearch.viewmodel.AlbumViewModel;

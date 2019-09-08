@@ -1,6 +1,6 @@
 package com.project.albumsearch;
 
-import com.project.albumsearch.datainjestion.DependencyInjector;
+import com.project.albumsearch.datainjection.DependencyInjector;
 
 import androidx.multidex.MultiDexApplication;
 

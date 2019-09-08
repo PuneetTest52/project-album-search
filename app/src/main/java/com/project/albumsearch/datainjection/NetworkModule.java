@@ -1,5 +1,6 @@
-package com.project.albumsearch.datainjestion;
+package com.project.albumsearch.datainjection;
 
+import com.project.albumsearch.BuildConfig;
 import com.project.albumsearch.network.AlbumApi;
 import com.project.albumsearch.network.ApiCallInterceptor;
 import com.project.albumsearch.repository.Repository;
@@ -10,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -38,6 +40,11 @@ public class NetworkModule {
     @AppScope
     OkHttpClient providesOkHttpClient() {
         final OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        if (BuildConfig.DEBUG) {
+            HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+            httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            builder.addInterceptor(httpLoggingInterceptor);
+        }
         builder.connectTimeout(TIMEOUT_CONNECT_IN_SEC, TimeUnit.SECONDS)
                 .readTimeout(TIMEOUT_READ_IN_SEC, TimeUnit.SECONDS)
                 .writeTimeout(TIMEOUT_WRITE_IN_SEC, TimeUnit.SECONDS);

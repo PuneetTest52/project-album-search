@@ -1,4 +1,4 @@
-package com.project.albumsearch.datainjestion;
+package com.project.albumsearch.datainjection;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

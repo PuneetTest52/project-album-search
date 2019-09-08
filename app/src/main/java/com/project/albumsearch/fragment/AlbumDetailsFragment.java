@@ -7,11 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.project.albumsearch.viewmodel.AlbumDetailsModel;
 import com.project.albumsearch.R;
 import com.project.albumsearch.utils.Utilities;
-
-import java.util.Objects;
+import com.project.albumsearch.viewmodel.AlbumDetailsModel;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
