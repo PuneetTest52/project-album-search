@@ -15,7 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AlbumDetailsViewHolder extends RecyclerView.ViewHolder {
+class AlbumDetailsViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.iv_album_Image) ImageView mAlbumImage;
     @BindView(R.id.tv_album_name) TextView mAlbumName;
@@ -24,8 +24,8 @@ public class AlbumDetailsViewHolder extends RecyclerView.ViewHolder {
     private final AlbumsAdapter.OnItemSelectListener mItemSelectListener;
     private AlbumDetailsModel mAlbumDetailsModel;
 
-    public AlbumDetailsViewHolder(@NonNull ViewGroup parent,
-                                  @NonNull AlbumsAdapter.OnItemSelectListener listener) {
+    AlbumDetailsViewHolder(@NonNull ViewGroup parent,
+                           @NonNull AlbumsAdapter.OnItemSelectListener listener) {
         super(LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.view_album_list_item, parent, false));
         ButterKnife.bind(this, itemView);
@@ -33,11 +33,11 @@ public class AlbumDetailsViewHolder extends RecyclerView.ViewHolder {
     }
 
     @OnClick(R.id.list_item_view)
-    public void onItemClick() {
+    void onItemClick() {
         mItemSelectListener.onItemSelected(mAlbumDetailsModel);
     }
 
-    public void bind(@NonNull final AlbumDetailsModel albumDetailsModel) {
+    void bind(@NonNull final AlbumDetailsModel albumDetailsModel) {
         mAlbumDetailsModel = albumDetailsModel;
         Utilities.loadImage(itemView.getContext(), mAlbumImage, mAlbumDetailsModel.getThumbnailImage());
         mAlbumName.setText(mAlbumDetailsModel.getName());

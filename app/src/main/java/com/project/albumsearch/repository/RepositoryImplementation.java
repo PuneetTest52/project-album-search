@@ -1,6 +1,5 @@
 package com.project.albumsearch.repository;
 
-import com.project.albumsearch.dto.AlbumApiResponse;
 import com.project.albumsearch.network.AlbumApi;
 import com.project.albumsearch.utils.Utilities;
 import com.project.albumsearch.viewmodel.AlbumDetailsModel;
@@ -12,7 +11,6 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class RepositoryImplementation implements Repository {
@@ -37,11 +35,6 @@ public class RepositoryImplementation implements Repository {
         return mAlbumApi.getAlbumsResponse(searchMethod, searchKeyword)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .map(new Function<AlbumApiResponse, List<AlbumDetailsModel>>() {
-                    @Override
-                    public List<AlbumDetailsModel> apply(AlbumApiResponse albumApiResponse) {
-                        return AlbumDetailsModel.fromApiResponse(albumApiResponse);
-                    }
-                });
+                .map(albumApiResponse -> AlbumDetailsModel.fromApiResponse(albumApiResponse));
     }
 }

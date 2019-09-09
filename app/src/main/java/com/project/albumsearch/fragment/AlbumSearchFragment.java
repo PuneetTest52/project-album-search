@@ -1,5 +1,6 @@
 package com.project.albumsearch.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,7 +12,6 @@ import com.project.albumsearch.R;
 import com.project.albumsearch.adapter.AlbumsAdapter;
 import com.project.albumsearch.datainjection.DependencyInjector;
 import com.project.albumsearch.handlers.NavigationalHandler;
-import com.project.albumsearch.handlers.OnErrorHandler;
 import com.project.albumsearch.utils.Utilities;
 import com.project.albumsearch.viewmodel.AlbumDetailsModel;
 import com.project.albumsearch.viewmodel.AlbumViewModel;
@@ -24,21 +24,19 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
-import androidx.core.widget.ContentLoadingProgressBar;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 
-public class AlbumSearchFragment extends BaseFragment implements AlbumsAdapter.OnItemSelectListener, OnErrorHandler {
+public class AlbumSearchFragment extends BaseFragment implements AlbumsAdapter.OnItemSelectListener {
 
     @BindView(R.id.rv_album_list) RecyclerView mRecyclerView;
-    @BindView(R.id.progress) ContentLoadingProgressBar mContentLoadingProgressBar;
     @BindView(R.id.sv_userSearch) SearchView mSearchView;
 
     private NavigationalHandler mNavigationalHandler;
     private AlbumViewModel mAlbumViewModel;
+    private ProgressDialog mProgressDialog;
 
     @Inject CustomViewModelFactory mViewModelFactory;
 
@@ -74,15 +72,18 @@ public class AlbumSearchFragment extends BaseFragment implements AlbumsAdapter.O
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setUpSearchView();
+        configureToolBarDetails();
+        setUpView();
 
         mAlbumViewModel = ViewModelProviders.of(this, mViewModelFactory).get(AlbumViewModel.class);
-        mAlbumViewModel.getAlbumApiResponseData().observe(this, new Observer<List<AlbumDetailsModel>>() {
-            @Override
-            public void onChanged(List<AlbumDetailsModel> albumDetailsModels) {
-                setAlbumAdapter(albumDetailsModels);
-                mContentLoadingProgressBar.hide();
-            }
+        mAlbumViewModel.getAlbumApiResponseData().observe(this, albumDetailsModels -> {
+            setAlbumAdapter(albumDetailsModels);
+            mProgressDialog.hide();
+        });
+
+        mAlbumViewModel.getErrorData().observe(this, errorMessage -> {
+            Toast.makeText(getContext(), errorMessage, Toast.LENGTH_LONG).show();
+            mProgressDialog.hide();
         });
 
         mRecyclerView.addItemDecoration(
@@ -90,8 +91,8 @@ public class AlbumSearchFragment extends BaseFragment implements AlbumsAdapter.O
     }
 
     private void getSearchResults(@NonNull final String userSearch) {
-        mContentLoadingProgressBar.show();
-        mAlbumViewModel.getSearchedAlbums(userSearch, this);
+        mProgressDialog.show();
+        mAlbumViewModel.getSearchedAlbums(userSearch);
     }
 
     private void setAlbumAdapter(@NonNull final List<AlbumDetailsModel> albumDetailsModels) {
@@ -103,8 +104,11 @@ public class AlbumSearchFragment extends BaseFragment implements AlbumsAdapter.O
         mNavigationalHandler.loadFragment(AlbumDetailsFragment.newInstance(album), true);
     }
 
-    private void setUpSearchView() {
-        mContentLoadingProgressBar.hide();
+    private void setUpView() {
+        mProgressDialog = new ProgressDialog(requireContext());
+        mProgressDialog.setTitle(getString(R.string.progress_dialog_title));
+        mProgressDialog.setCancelable(false);
+
         mSearchView.setIconified(false);
         mSearchView.clearFocus();
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -121,7 +125,7 @@ public class AlbumSearchFragment extends BaseFragment implements AlbumsAdapter.O
         });
     }
 
-    private void getResults(String userSearch) {
+    private void getResults(@NonNull final String userSearch) {
         final Context context = requireContext();
         if (Utilities.isNetworkAvailable(context)) {
             getSearchResults(userSearch);
@@ -131,9 +135,8 @@ public class AlbumSearchFragment extends BaseFragment implements AlbumsAdapter.O
         mSearchView.clearFocus();
     }
 
-    @Override
-    public void onError(@NonNull final String errorMessage) {
-        mContentLoadingProgressBar.hide();
-        Toast.makeText(getContext(), errorMessage, Toast.LENGTH_LONG).show();
+    private void configureToolBarDetails() {
+        mNavigationalHandler.shouldShowBackNavigation(false);
+        mNavigationalHandler.setScreenTitle(getString(R.string.screen_title_album_search));
     }
 }

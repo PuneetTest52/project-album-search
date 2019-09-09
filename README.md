@@ -23,3 +23,5 @@ Query Parameters required -
 - [x] RxJava : To fetch the response from API.
 - [x] Mockito : For Unit tests. Unit tests are covered for ViewModel, Repository and Utilities.
 - [x] Espresso : Used for UI test cases.
+- [x] ButterKnife : Used for View Binding.
+- [x] Glide : Used for loading Images.

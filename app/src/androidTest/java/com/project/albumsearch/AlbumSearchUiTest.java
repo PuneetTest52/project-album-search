@@ -25,7 +25,7 @@ import static org.hamcrest.Matchers.not;
 @RunWith(AndroidJUnit4.class)
 public class AlbumSearchUiTest {
 
-    private static final long WAIT_TIME = 2000;
+    private static final long WAIT_TIME = 3000;
     private static final int POSITION = 0;
     private static final String SEARCH_TEXT = "Rock";
     @Rule

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 
 public class AlbumDetailsModel implements Parcelable {
 
@@ -25,7 +26,8 @@ public class AlbumDetailsModel implements Parcelable {
     private final String mThumbnailImage;
     private final String mLargeImage;
 
-    private AlbumDetailsModel(@NonNull final Album albumApiResponse) {
+    @VisibleForTesting
+    public AlbumDetailsModel(@NonNull final Album albumApiResponse) {
         mName = albumApiResponse.getName();
         mArtist = albumApiResponse.getArtist();
         mThumbnailImage = getImageUrl(albumApiResponse.getAlbumImages(), IMAGE_SIZE_THUMBNAIL);
@@ -72,10 +74,10 @@ public class AlbumDetailsModel implements Parcelable {
      */
     @NonNull
     public static List<AlbumDetailsModel> fromApiResponse(@NonNull final AlbumApiResponse albumApiResponse) {
-        List<AlbumDetailsModel> albumDetailsModels = new ArrayList<>();
-        AlbumResults albumResults = albumApiResponse.getAlbumResults();
-        AlbumMatches albumMatches = albumResults.getAlbumMatches();
-        List<Album> albums = albumMatches.getAlbumsList();
+        final List<AlbumDetailsModel> albumDetailsModels = new ArrayList<>();
+        final AlbumResults albumResults = albumApiResponse.getAlbumResults();
+        final AlbumMatches albumMatches = albumResults.getAlbumMatches();
+        final List<Album> albums = albumMatches.getAlbumsList();
         for (Album album : albums) {
             albumDetailsModels.add(new AlbumDetailsModel(album));
         }
@@ -109,9 +111,10 @@ public class AlbumDetailsModel implements Parcelable {
      * @param size        image size required
      * @return Required image sized url.
      */
+    @VisibleForTesting
     @NonNull
-    private String getImageUrl(@NonNull final List<AlbumImage> albumImages,
-                               @NonNull final String size) {
+    String getImageUrl(@NonNull final List<AlbumImage> albumImages,
+                       @NonNull final String size) {
         for (AlbumImage albumImage : albumImages) {
             if (size.equalsIgnoreCase(albumImage.getSize())) {
                 return albumImage.getImage();

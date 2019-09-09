@@ -1,6 +1,5 @@
 package com.project.albumsearch.viewmodel;
 
-import com.project.albumsearch.handlers.OnErrorHandler;
 import com.project.albumsearch.repository.Repository;
 
 import org.junit.Before;
@@ -17,7 +16,6 @@ import io.reactivex.Single;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -31,7 +29,6 @@ public class AlbumViewModelTest {
     @Mock Repository mRepository;
     @Mock private AlbumDetailsModel mAlbumDetailsModel;
     @Mock private Throwable mThrowable;
-    @Mock OnErrorHandler mOnErrorHandler;
 
     private AlbumViewModel mAlbumViewModel;
 
@@ -45,7 +42,7 @@ public class AlbumViewModelTest {
         when(mRepository.getAlbumDetails(anyString(), anyString()))
                 .thenReturn(Single.just(Collections.singletonList(mAlbumDetailsModel)));
 
-        mAlbumViewModel.getSearchedAlbums(ARTIST_NAME, mOnErrorHandler);
+        mAlbumViewModel.getSearchedAlbums(ARTIST_NAME);
 
         assertThat(mAlbumViewModel.getAlbumApiResponseData().getValue()).isNotNull();
     }
@@ -56,8 +53,8 @@ public class AlbumViewModelTest {
         when(mRepository.getAlbumDetails(anyString(), anyString()))
                 .thenReturn(Single.error(mThrowable));
 
-        mAlbumViewModel.getSearchedAlbums(ARTIST_NAME, mOnErrorHandler);
+        mAlbumViewModel.getSearchedAlbums(ARTIST_NAME);
 
-        verify(mOnErrorHandler).onError(ERROR);
+        assertThat(mAlbumViewModel.getErrorData().getValue()).isNotNull();
     }
 }

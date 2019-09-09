@@ -3,4 +3,7 @@
     <string name="dummy_name">Sample Name</string>
     <string name="no_network">Please connect to the internet  to search the albums.</string>
     <string name="search_view_hint">Enter the album name to search</string>
+    <string name="screen_title_album_details">Album Details</string>
+    <string name="screen_title_album_search">Album Search</string>
+    <string name="progress_dialog_title">Searching albums&#8230;</string>
 </resources>

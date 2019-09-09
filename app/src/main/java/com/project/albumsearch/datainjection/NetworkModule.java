@@ -20,7 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * This is a module with all the dependencies needed for network connections
  */
 @Module
-public class NetworkModule {
+class NetworkModule {
 
     private static final String BASE_URL = "http://ws.audioscrobbler.com/";
     private static final long CONNECTION_TIMEOUT_SEC = 10;

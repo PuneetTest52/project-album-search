@@ -39,6 +39,6 @@ public class AlbumsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public interface OnItemSelectListener {
-        void onItemSelected(@NonNull AlbumDetailsModel item);
+        void onItemSelected(@NonNull final AlbumDetailsModel item);
     }
 }

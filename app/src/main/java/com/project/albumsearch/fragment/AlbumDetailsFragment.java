@@ -1,5 +1,6 @@
 package com.project.albumsearch.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.project.albumsearch.R;
+import com.project.albumsearch.handlers.NavigationalHandler;
 import com.project.albumsearch.utils.Utilities;
 import com.project.albumsearch.viewmodel.AlbumDetailsModel;
 
@@ -22,12 +24,24 @@ public class AlbumDetailsFragment extends BaseFragment {
     @BindView(R.id.tv_albumName) TextView mAlbumName;
     @BindView(R.id.tv_artistName) TextView mArtistName;
 
-    public static AlbumDetailsFragment newInstance(@NonNull final AlbumDetailsModel albumDetailsModels) {
+    private NavigationalHandler mNavigationalHandler;
+
+    static AlbumDetailsFragment newInstance(@NonNull final AlbumDetailsModel albumDetailsModels) {
         AlbumDetailsFragment albumDetailsFragment = new AlbumDetailsFragment();
         final Bundle bundle = new Bundle();
         bundle.putParcelable(ARG_ALBUM_DETAILS, albumDetailsModels);
         albumDetailsFragment.setArguments(bundle);
         return albumDetailsFragment;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            mNavigationalHandler = (NavigationalHandler) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context + " must implement NavigationalHandler");
+        }
     }
 
     @Nullable
@@ -41,6 +55,8 @@ public class AlbumDetailsFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        configureToolBarDetails();
+
         final Bundle bundle = getArguments();
         if (bundle != null) {
             final AlbumDetailsModel albumDetailsModels = bundle.getParcelable(ARG_ALBUM_DETAILS);
@@ -48,5 +64,10 @@ public class AlbumDetailsFragment extends BaseFragment {
             mAlbumName.setText(albumDetailsModels.getName());
             mArtistName.setText(albumDetailsModels.getArtist());
         }
+    }
+
+    private void configureToolBarDetails() {
+        mNavigationalHandler.shouldShowBackNavigation(true);
+        mNavigationalHandler.setScreenTitle(getString(R.string.screen_title_album_details));
     }
 }
