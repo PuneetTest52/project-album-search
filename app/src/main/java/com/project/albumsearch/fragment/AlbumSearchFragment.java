@@ -24,6 +24,7 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
@@ -76,12 +77,12 @@ public class AlbumSearchFragment extends BaseFragment implements AlbumsAdapter.O
         setUpView();
 
         mAlbumViewModel = ViewModelProviders.of(this, mViewModelFactory).get(AlbumViewModel.class);
-        mAlbumViewModel.getAlbumApiResponseData().observe(this, albumDetailsModels -> {
+        mAlbumViewModel.getAlbumApiResponseData().observe(getViewLifecycleOwner(), albumDetailsModels -> {
             setAlbumAdapter(albumDetailsModels);
             mProgressDialog.hide();
         });
 
-        mAlbumViewModel.getErrorData().observe(this, errorMessage -> {
+        mAlbumViewModel.getErrorData().observe(getViewLifecycleOwner(), errorMessage -> {
             Toast.makeText(getContext(), errorMessage, Toast.LENGTH_LONG).show();
             mProgressDialog.hide();
         });

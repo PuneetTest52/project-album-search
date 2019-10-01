@@ -10,11 +10,9 @@ public class DependencyInjector {
     /**
      * Builds the app Component.
      *
-     * @param application App instance
      */
-    public static void initialize(@NonNull final App application) {
+    public static void initialize() {
         applicationComponent = DaggerAppComponent.builder()
-                .application(application)
                 .build();
     }
 

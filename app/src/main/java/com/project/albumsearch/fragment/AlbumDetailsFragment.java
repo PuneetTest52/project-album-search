@@ -27,7 +27,7 @@ public class AlbumDetailsFragment extends BaseFragment {
     private NavigationalHandler mNavigationalHandler;
 
     static AlbumDetailsFragment newInstance(@NonNull final AlbumDetailsModel albumDetailsModels) {
-        AlbumDetailsFragment albumDetailsFragment = new AlbumDetailsFragment();
+        final AlbumDetailsFragment albumDetailsFragment = new AlbumDetailsFragment();
         final Bundle bundle = new Bundle();
         bundle.putParcelable(ARG_ALBUM_DETAILS, albumDetailsModels);
         albumDetailsFragment.setArguments(bundle);

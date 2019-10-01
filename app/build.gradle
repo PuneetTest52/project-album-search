@@ -16,6 +16,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', "ApiKey", MyKey
+        }
+        debug {
+            buildConfigField 'String', "ApiKey", MyKey
         }
     }
     compileOptions {
@@ -80,5 +84,5 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-android-processor:${daggerAndroidVersion}"
 
     implementation "androidx.multidex:multidex:${multiDexersion}"
-
+    implementation 'com.google.android.material:material:1.0.0'
 }

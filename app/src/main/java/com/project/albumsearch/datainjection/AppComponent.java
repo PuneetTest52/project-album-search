@@ -1,11 +1,8 @@
 package com.project.albumsearch.datainjection;
 
-import android.app.Application;
-
 import com.project.albumsearch.App;
 import com.project.albumsearch.fragment.AlbumSearchFragment;
 
-import dagger.BindsInstance;
 import dagger.Component;
 
 @Component(modules = {
@@ -21,8 +18,6 @@ public interface AppComponent {
 
     @Component.Builder
     interface Builder {
-        @BindsInstance
-        Builder application(Application application);
 
         AppComponent build();
     }

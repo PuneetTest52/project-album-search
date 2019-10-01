@@ -13,6 +13,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 public class AlbumViewModel extends ViewModel {
 
@@ -36,9 +37,19 @@ public class AlbumViewModel extends ViewModel {
      */
     public void getSearchedAlbums(@NonNull final String searchKeyword) {
         addDisposable(mRepository.getAlbumDetails(Utilities.SEARCH_METHOD, searchKeyword)
-                .subscribe(albumDetailsModels -> mAlbumApiResponseData.setValue(albumDetailsModels),
-                        throwable -> mErrorData
-                                .setValue(StringUtilities.emptyStringIfNull(throwable.getLocalizedMessage()))));
+                .subscribe(new Consumer<List<AlbumDetailsModel>>() {
+                               @Override
+                               public void accept(List<AlbumDetailsModel> albumDetailsModels) throws Exception {
+                                   mAlbumApiResponseData.setValue(albumDetailsModels);
+                               }
+                           },
+                        new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                mErrorData
+                                        .setValue(StringUtilities.emptyStringIfNull(throwable.getLocalizedMessage()));
+                            }
+                        }));
     }
 
     public MutableLiveData<List<AlbumDetailsModel>> getAlbumApiResponseData() {

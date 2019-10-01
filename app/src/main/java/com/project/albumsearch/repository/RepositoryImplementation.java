@@ -10,6 +10,8 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import io.reactivex.Single;
+import io.reactivex.SingleSource;
+import io.reactivex.SingleTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -33,8 +35,21 @@ public class RepositoryImplementation implements Repository {
     public Single<List<AlbumDetailsModel>> getAlbumDetails(@NonNull final String searchMethod,
                                                            @NonNull final String searchKeyword) {
         return mAlbumApi.getAlbumsResponse(searchMethod, searchKeyword)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(applySingleSchedulers())
                 .map(albumApiResponse -> AlbumDetailsModel.fromApiResponse(albumApiResponse));
+    }
+
+    /**
+     * @param <S> Type of object that Single emits.
+     * @return a Single that subscribed on IO and observes on Main schedulers.
+     */
+    public static <S> SingleTransformer<S, S> applySingleSchedulers() {
+        return new SingleTransformer<S, S>() {
+            @Override
+            public SingleSource<S> apply(Single<S> single) {
+                return single.subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread());
+            }
+        };
     }
 }
